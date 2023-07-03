@@ -4,6 +4,18 @@ author: "Eric Anku"
 format: html
 ---
 
+```{r load-packages}
+pacman::p_load(
+  tidyverse,
+  googlesheets4
+)
+```
+
+
+```{r load-dataset}
+df <- read_sheet("https://docs.google.com/spreadsheets/d/1k_VoEKpsv5EtCjwA7E0oPXegnOe0kpR3X0QN-q-4knM/edit?usp=sharing")
+```
+
 ```{r}
 
 ```
