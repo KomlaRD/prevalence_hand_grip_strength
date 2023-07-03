@@ -9,7 +9,8 @@ pacman::p_load(
   tidyverse,
   googlesheets4,
   janitor,
-  skimr
+  skimr,
+  gtsummary
 )
 ```
 
@@ -56,5 +57,14 @@ df <- df%>%
 
 ```{r skim-dataset}
 skim(df)
+```
+
+
+```{r table-summary}
+df%>%
+  select(
+    -c(if_yes)
+  )%>%
+  tbl_summary()
 ```
 
