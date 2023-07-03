@@ -33,3 +33,14 @@ extracted_part <- substr(data_cols, 6, nchar(data_cols))
 names(df)[grepl("^data_", names(df))] <- extracted_part
 ```
 
+```{r remove-redundant-variables}
+df <- df%>%
+  select(-c(
+    meta_instance_id,
+    participant_id,
+    start_time,
+    participant_consent_form,
+    end_time
+  ))
+```
+
