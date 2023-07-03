@@ -45,6 +45,15 @@ df <- df%>%
   ))
 ```
 
+```{r calculate-bmi}
+# Calculate body mass index
+df <- df%>%
+  mutate(
+    bmi = weight/(height * height)
+  )
+```
+
+
 ```{r skim-dataset}
 skim(df)
 ```
