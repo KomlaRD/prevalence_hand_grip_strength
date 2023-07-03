@@ -7,16 +7,29 @@ format: html
 ```{r load-packages}
 pacman::p_load(
   tidyverse,
-  googlesheets4
+  googlesheets4,
+  janitor
 )
 ```
 
 
 ```{r load-dataset}
+# Load dataset
 df <- read_sheet("https://docs.google.com/spreadsheets/d/1k_VoEKpsv5EtCjwA7E0oPXegnOe0kpR3X0QN-q-4knM/edit?usp=sharing")
 ```
 
-```{r}
+```{r clean-names}
+# Clean names
+df <- clean_names(df)
+```
 
+```{r extract-column-names}
+# Extract column names starting with data_
+data_cols <- names(df)[grepl("^data_", names(df))]
+
+extracted_part <- substr(data_cols, 6, nchar(data_cols))
+
+# Replace existing column names with new extracted names
+names(df)[grepl("^data_", names(df))] <- extracted_part
 ```
 
