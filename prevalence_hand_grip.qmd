@@ -8,7 +8,8 @@ format: html
 pacman::p_load(
   tidyverse,
   googlesheets4,
-  janitor
+  janitor,
+  skimr
 )
 ```
 
@@ -42,5 +43,9 @@ df <- df%>%
     participant_consent_form,
     end_time
   ))
+```
+
+```{r skim-dataset}
+skim(df)
 ```
 
