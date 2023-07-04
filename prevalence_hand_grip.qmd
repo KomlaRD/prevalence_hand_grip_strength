@@ -11,7 +11,8 @@ pacman::p_load(
   janitor,
   skimr,
   gtsummary,
-  finalfit
+  finalfit,
+  here
 )
 ```
 
@@ -73,7 +74,7 @@ df%<%
     low_grip_strength = case_when(
       gender == "Male" & average_grip_strength < male_cut_off ~ "Yes",
       gender = "Female" & average_grip_strength < female_cut_off ~ "Yes",
-      
+      .default = "No"
     )
   )
 ```
@@ -97,5 +98,9 @@ df%>%
 ```{r rename-variables}
 # Label variables
 
+```
+
+```{r export_clean_data}
+export(df, here("data", "hand_grip_dataset.csv"))
 ```
 
