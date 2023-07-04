@@ -64,7 +64,16 @@ female_cut_off <- 16
 df%<%
   mutate(
     bmi_cat = case_when(
-      bmi < 18.5 ~ "Und"
+      bmi < 18.5 ~ "Underweight",
+      bmi >= 18.5 & bmi <= 24.9 ~ "Normal",
+      bmi >= 25 & bmi <= 29.9 ~ "Overweight",
+      bmi >= 30 ~ "Obese"
+    ),
+    average_grip_strength = (hand_grip_left + hand_grip_right)/2,
+    low_grip_strength = case_when(
+      gender == "Male" & average_grip_strength < male_cut_off ~ "Yes",
+      gender = "Female" & average_grip_strength < female_cut_off ~ "Yes",
+      
     )
   )
 ```
