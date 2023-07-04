@@ -10,7 +10,8 @@ pacman::p_load(
   googlesheets4,
   janitor,
   skimr,
-  gtsummary
+  gtsummary,
+  finalfit
 )
 ```
 
@@ -55,16 +56,37 @@ df <- df%>%
 ```
 
 
+```{r mutate-additional-variables}
+# Low muscle strength cut off EWGSOP2
+male_cut_off <- 27
+female_cut_off <- 16
+
+df%<%
+  mutate(
+    bmi_cat = case_when(
+      bmi < 18.5 ~ "Und"
+    )
+  )
+```
+
+
 ```{r skim-dataset}
+# Skim dataset
 skim(df)
 ```
 
 
 ```{r table-summary}
+# Table summary
 df%>%
   select(
     -c(if_yes)
   )%>%
   tbl_summary()
+```
+
+```{r rename-variables}
+# Label variables
+
 ```
 
