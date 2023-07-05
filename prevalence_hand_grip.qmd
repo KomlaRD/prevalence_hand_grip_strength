@@ -6,19 +6,22 @@ format: html
 
 ```{r load-packages}
 pacman::p_load(
-  tidyverse,
-  googlesheets4,
-  janitor,
-  skimr,
-  gtsummary,
-  finalfit,
-  here
+  tidyverse, # Data manipulation
+  googlesheets4, # Import dataset from google sheet
+  janitor, # Clean column names
+  skimr, # Skim dataset
+  gtsummary, # Table summaries
+  finalfit, # Column labels
+  here, # File management
+  rio # Export dataset
 )
 ```
 
 
 ```{r load-dataset}
 # Load dataset
+gs4_deauth()
+gs4_auth()
 df <- read_sheet("https://docs.google.com/spreadsheets/d/1k_VoEKpsv5EtCjwA7E0oPXegnOe0kpR3X0QN-q-4knM/edit?usp=sharing")
 ```
 
@@ -62,7 +65,7 @@ df <- df%>%
 male_cut_off <- 27
 female_cut_off <- 16
 
-df%<%
+df <- df%>%
   mutate(
     bmi_cat = case_when(
       bmi < 18.5 ~ "Underweight",
@@ -70,10 +73,10 @@ df%<%
       bmi >= 25 & bmi <= 29.9 ~ "Overweight",
       bmi >= 30 ~ "Obese"
     ),
-    average_grip_strength = (hand_grip_left + hand_grip_right)/2,
+    average_grip_strength = (handgrip_left + handgrip_right)/2,
     low_grip_strength = case_when(
       gender == "Male" & average_grip_strength < male_cut_off ~ "Yes",
-      gender = "Female" & average_grip_strength < female_cut_off ~ "Yes",
+      gender == "Female" & average_grip_strength < female_cut_off ~ "Yes",
       .default = "No"
     )
   )
