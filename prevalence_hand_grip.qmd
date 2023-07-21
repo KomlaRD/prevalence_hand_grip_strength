@@ -107,7 +107,8 @@ print(shapiro_p_values)
 # Skim dataset
 skim(df)
 ```
-```{r}
+
+```{r correct-typo}
 # Correct visceral fat spelling
 df <- df |>
   rename(
@@ -123,7 +124,6 @@ df <- df |>
     gender = ff_label(gender, "Sex of participant"),
     education_level = ff_label(education_level, "Educational status"),
     marital_status = ff_label(marital_status, "Marital status"),
-    occupation = ff_label(occupation, "Occupation"),
     smoking = ff_label(smoking, "Smoking"),
     alcohol = ff_label(alcohol, "Alcohol intake"),
     physical_activity = ff_label(physical_activity, "Physical activity"),
@@ -136,7 +136,7 @@ df <- df |>
     type_2_diabetes_management = ff_label(type_2_diabetes_management, "Management of condition"),
     
     religion = ff_label(religion, "Religion"),
-    height = ff_label(height_1, "Height (cm)"),
+    height = ff_label(height, "Height (cm)"),
     weight = ff_label(weight, "Weight (kg)"),
     handgrip_left = ff_label(handgrip_left, "Hand grip left hand (kg)"),
     handgrip_right = ff_label(handgrip_right, "Hand grip right hand (kg)"),
@@ -163,6 +163,13 @@ df%>%
 
 
 ```{r export_clean_data}
+# Export csv data
 export(df, here("data", "hand_grip_dataset.csv"))
+
+# Export excel data
+# export(df, here("data", "hand_grip_dataset.xlsx"))
+
+# Export spss data
+# export(df, here("data", "hand_grip_dataset.sav"))
 ```
 
