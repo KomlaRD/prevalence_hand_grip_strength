@@ -108,6 +108,40 @@ print(shapiro_p_values)
 skim(df)
 ```
 
+```{r rename-variables}
+# Label variables
+df <- df |>
+  mutate(
+    age = ff_label(age, "Age (years"),
+    gender = ff_label(gender, "Sex of participant"),
+    education_level = ff_label(education_level, "Educational status"),
+    marital_status = ff_label(marital_status, "Marital status"),
+    occupation = ff_label(occupation, "Occupation"),
+    smoking = ff_label(smoking, "Smoking"),
+    alcohol = ff_label(alcohol, "Alcohol intake"),
+    physical_activity = ff_label(physical_activity, "Physical activity"),
+    hand_grip_position = ff_label(hand_grip_position, "Position of HGS measurement"),
+    bmi_cat = ff_label(bmi_cat, "BMI category"),
+    other_health_condition = ff_label(other_health_condition, "Comorbidities"),
+    if_yes_what_conditions = ff_label(if_yes_what_conditions, "List of comorbidities"),
+    other_health_conditions = ff_label(other_health_conditions, "Additional health conditions"),
+    family_history_of_diabetes = ff_label(family_history_of_diabetes, "Family history of diabetes"),
+    type_2_diabetes_management = ff_label(type_2_diabetes_management, "Management of condition"),
+    
+    religion = ff_label(religion, "Religion"),
+    height = ff_label(height_1, "Height (cm)"),
+    weight = ff_label(weight, "Weight (kg)"),
+    handgrip_left = ff_label(handgrip_left, "Hand grip left hand (kg)"),
+    handgrip_right = ff_label(handgrip_right, "Hand grip right hand (kg)"),
+    muscle_mass = ff_label(muscle_mass, "Muscle mass (%)"),
+    body_fat = ff_label(body_fat, "Body fat (%)"),
+    visceral_fat = ff_label(visceral_fat, "Visceral fat"),
+    bmi = ff_label(bmi, "Body mass index"),
+    average_grip_strength = ff_label(average_grip_strength, "Average grip strength"),
+    low_grip_strength = ff_label(low_grip_strength, "Low muscle strength")
+  )
+```
+
 
 ```{r table-summary}
 # Table summary
@@ -128,26 +162,6 @@ df <- df |>
   )
 ```
 
-```{r rename-variables}
-# Label variables
-df <- df |>
-  mutate(
-    age = ff_label(age, "Age (years"),
-    gender = ff_label(gender, "Sex of participant"),
-    education_level = ff_label(education_level, "Educational status"),
-    marital_status = ff_label(marital_status, "Marital status"),
-    occupation = ff_label(occupation, "Occupation"),
-    ethnicity = ff_label(ethnicity, "Ethnicity"),
-    religion = ff_label(religion, "Religion"),
-    height = ff_label(height_1, "Height (cm)"),
-    weight = ff_label(weight, "Weight (kg)"),
-    handgrip_left = ff_label(handgrip_left, "Hand grip left hand (kg)"),
-    handgrip_right = ff_label(handgrip_right, "Hand grip right hand (kg)"),
-    muscle_mass = ff_label(muscle_mass, "Muscle mass (%)"),
-    body_fat = ff_label(body_fat, "Body fat (%)"),
-    visceral_fat = ff_label(visceral_fat, "Visceral fat")
-  )
-```
 
 ```{r export_clean_data}
 export(df, here("data", "hand_grip_dataset.csv"))
