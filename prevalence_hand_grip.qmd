@@ -20,9 +20,8 @@ pacman::p_load(
 
 
 ```{r load-dataset}
+#| message: false
 # Load dataset
-# gs4_deauth()
-# gs4_auth()
 df <- read_sheet("https://docs.google.com/spreadsheets/d/1k_VoEKpsv5EtCjwA7E0oPXegnOe0kpR3X0QN-q-4knM/edit?usp=sharing")
 ```
 
@@ -121,9 +120,33 @@ df%>%
   )
 ```
 
+```{r}
+# Correct visceral fat spelling
+df <- df |>
+  rename(
+    visceral_fat = viceral_fat
+  )
+```
+
 ```{r rename-variables}
 # Label variables
-
+df <- df |>
+  mutate(
+    age = ff_label(age, "Age (years"),
+    gender = ff_label(gender, "Sex of participant"),
+    education_level = ff_label(education_level, "Educational status"),
+    marital_status = ff_label(marital_status, "Marital status"),
+    occupation = ff_label(occupation, "Occupation"),
+    ethnicity = ff_label(ethnicity, "Ethnicity"),
+    religion = ff_label(religion, "Religion"),
+    height = ff_label(height_1, "Height (cm)"),
+    weight = ff_label(weight, "Weight (kg)"),
+    handgrip_left = ff_label(handgrip_left, "Hand grip left hand (kg)"),
+    handgrip_right = ff_label(handgrip_right, "Hand grip right hand (kg)"),
+    muscle_mass = ff_label(muscle_mass, "Muscle mass (%)"),
+    body_fat = ff_label(body_fat, "Body fat (%)"),
+    visceral_fat = ff_label(viceral_fat, "Visceral fat")
+  )
 ```
 
 ```{r export_clean_data}
