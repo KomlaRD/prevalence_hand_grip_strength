@@ -107,6 +107,13 @@ print(shapiro_p_values)
 # Skim dataset
 skim(df)
 ```
+```{r}
+# Correct visceral fat spelling
+df <- df |>
+  rename(
+    visceral_fat = viceral_fat
+  )
+```
 
 ```{r rename-variables}
 # Label variables
@@ -151,14 +158,6 @@ df%>%
   )%>%
   tbl_summary(
      type = all_dichotomous() ~ "categorical"
-  )
-```
-
-```{r}
-# Correct visceral fat spelling
-df <- df |>
-  rename(
-    visceral_fat = viceral_fat
   )
 ```
 
