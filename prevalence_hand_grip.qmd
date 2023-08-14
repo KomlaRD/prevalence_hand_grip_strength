@@ -65,15 +65,31 @@ df <- df%>%
 male_cut_off <- 27
 female_cut_off <- 16
 
+# TODO: Cross-check bmi categories 
 df <- df%>%
   mutate(
     bmi_cat = case_when(
       bmi < 18.5 ~ "Underweight",
       bmi >= 18.5 & bmi <= 24.9 ~ "Normal",
-      bmi >= 25 & bmi <= 29.9 ~ "Overweight",
-      bmi >= 30 ~ "Obese"
+      bmi >= 25.0 & bmi <= 29.9 ~ "Overweight",
+      bmi >= 30.0 ~ "Obese"
     ),
     average_grip_strength = (handgrip_left + handgrip_right)/2,
+    low_grip_strength = case_when(
+      gender == "Male" & average_grip_strength < male_cut_off ~ "Yes",
+      gender == "Female" & average_grip_strength < female_cut_off ~ "Yes",
+      .default = "No"
+    )
+  )
+
+
+# Remove rows with missing values in average hand grip strength column
+clean_data <- subset(df, !is.na(average_grip_strength))
+
+
+# Categorise low muscle strength
+clean_data <- clean_data%>%
+  mutate(
     low_grip_strength = case_when(
       gender == "Male" & average_grip_strength < male_cut_off ~ "Yes",
       gender == "Female" & average_grip_strength < female_cut_off ~ "Yes",
@@ -159,6 +175,32 @@ df%>%
   tbl_summary(
      type = all_dichotomous() ~ "categorical"
   )
+```
+
+
+```{r clean-data-summary}
+# Table summary
+clean_data%>%
+  select(
+    -c(if_yes, participant_id)
+  )%>%
+  tbl_summary(
+     type = all_dichotomous() ~ "categorical"
+  ) |> add_ci()
+```
+
+```{r clean-data-by-sex}
+# Table summary
+clean_data%>%
+  select(
+    -c(if_yes, participant_id)
+  )%>%
+  tbl_summary(
+     type = all_dichotomous() ~ "categorical",
+     by = gender
+  ) |>
+  add_p() |>
+  add_ci()
 ```
 
 
