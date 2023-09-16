@@ -14,7 +14,8 @@ pacman::p_load(
   finalfit, # Column labels
   here, # File management
   rio, # Export dataset
-  broom # Tidy output
+  broom, # Tidy output
+  DataExplorer
 )
 ```
 
@@ -47,7 +48,8 @@ df <- df%>%
     start_time,
     participant_consent_form,
     end_time,
-    type_2_diabetes # Screening question
+    type_2_diabetes, # Screening question
+    participant_id
   ))
 ```
 
@@ -201,6 +203,20 @@ clean_data%>%
   ) |>
   add_p() |>
   add_ci()
+```
+
+
+
+```{r}
+report_df <- clean_data |>
+  select(-c(if_yes, participant_id))
+
+create_report(report_df)
+```
+
+```{r}
+
+create_report(numeric_vars)
 ```
 
 
