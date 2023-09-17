@@ -1,8 +1,14 @@
 ---
 title: "Prevalence of hand grip strength among patients with diabetes"
-author: "Eric Anku"
 format: html
 ---
+
+```{r setup, include=FALSE}
+# Project setup
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE) # mute codes
+```
+
 
 ```{r load-packages}
 pacman::p_load(
@@ -57,7 +63,8 @@ df <- df%>%
 # Calculate body mass index
 df <- df%>%
   mutate(
-    bmi = weight/(height * height)
+    bmi = weight/(height * height),
+    height_cm = height * 100
   )
 ```
 
@@ -117,6 +124,7 @@ shapiro_p_values <- numeric_vars %>%
   pivot_longer(everything(), names_to = "Variable", values_to = "P_Value")
 
 # Display the p-values
+print("Shapiro values for normality testing")
 print(shapiro_p_values)
 ```
 
@@ -172,7 +180,7 @@ df <- df |>
 # Table summary
 df%>%
   select(
-    -c(if_yes, participant_id)
+    -c(if_yes)
   )%>%
   tbl_summary(
      type = all_dichotomous() ~ "categorical"
@@ -184,7 +192,7 @@ df%>%
 # Table summary
 clean_data%>%
   select(
-    -c(if_yes, participant_id)
+    -c(if_yes)
   )%>%
   tbl_summary(
      type = all_dichotomous() ~ "categorical"
@@ -195,7 +203,7 @@ clean_data%>%
 # Table summary
 clean_data%>%
   select(
-    -c(if_yes, participant_id)
+    -c(if_yes)
   )%>%
   tbl_summary(
      type = all_dichotomous() ~ "categorical",
@@ -207,27 +215,26 @@ clean_data%>%
 
 
 
-```{r}
-report_df <- clean_data |>
-  select(-c(if_yes, participant_id))
-
-create_report(report_df)
+```{r report-one}
+# report_df <- clean_data |>
+#   select(-c(if_yes))
+# 
+# create_report(report_df)
 ```
 
-```{r}
-
-create_report(numeric_vars)
+```{r report-two}
+# create_report(numeric_vars)
 ```
 
 
 ```{r export_clean_data}
 # Export csv data
-export(df, here("data", "hand_grip_dataset.csv"))
-
-# Export excel data
-# export(df, here("data", "hand_grip_dataset.xlsx"))
-
-# Export spss data
-# export(df, here("data", "hand_grip_dataset.sav"))
+export(clean_data, here("data", "hand_grip_dataset.csv"))
+# 
+# # Export excel data
+# #export(clean_data, here("data", "hand_grip_dataset.xlsx"))
+# 
+# # Export spss data
+# export(clean_data, here("data", "hand_grip_dataset.sav"))
 ```
 
