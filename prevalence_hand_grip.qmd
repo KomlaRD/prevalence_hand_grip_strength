@@ -249,3 +249,11 @@ export(df_ml, here("data", "df_ml.csv"))
 ```
 
 
+```{r}
+df_classification <- clean_data %>% select(c(age, gender, weight, height, bmi_cat, low_grip_strength))
+
+# Export csv data
+export(df_classification, here("data", "df_class.csv"))
+```
+
+
