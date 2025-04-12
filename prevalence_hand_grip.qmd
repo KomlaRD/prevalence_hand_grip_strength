@@ -230,11 +230,22 @@ clean_data%>%
 ```{r export_clean_data}
 # Export csv data
 export(clean_data, here("data", "hand_grip_dataset.csv"))
-# 
-# # Export excel data
-# #export(clean_data, here("data", "hand_grip_dataset.xlsx"))
-# 
-# # Export spss data
-# export(clean_data, here("data", "hand_grip_dataset.sav"))
+
+# Export excel data
+#export(clean_data, here("data", "hand_grip_dataset.xlsx"))
+
+# Export spss data
+#export(clean_data, here("data", "hand_grip_dataset.sav"))
+
+# Export Rdata
+export(clean_data, here("data", "hand_grip_dataset.RData"))
 ```
+
+```{r}
+df_ml <- clean_data %>% select(c(age, gender, weight, height, bmi_cat, average_grip_strength))
+
+# Export csv data
+export(df_ml, here("data", "df_ml.csv"))
+```
+
 
